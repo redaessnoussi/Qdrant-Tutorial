@@ -17,6 +17,9 @@ import openai
 from qdrant_client import QdrantClient, models
 from tqdm import tqdm
 
+# check this link:
+# https://huggingface.co/datasets/Qdrant/dbpedia-entities-openai3-text-embedding-3-large-1536-100K
+
 os.environ["HF_DATASETS_CACHE"] = "C:/hf_cache"  # short path avoids Windows MAX_PATH
 
 from datasets import load_dataset
