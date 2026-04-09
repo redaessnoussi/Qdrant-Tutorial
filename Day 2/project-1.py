@@ -1,3 +1,5 @@
+# vector search fundmaentals
+
 import os
 import ssl
 

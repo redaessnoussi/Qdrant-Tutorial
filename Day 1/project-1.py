@@ -1,3 +1,4 @@
+# vector search fundmaentals
 from qdrant_client import QdrantClient, models
 from dotenv import load_dotenv
 
