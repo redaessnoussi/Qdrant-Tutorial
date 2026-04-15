@@ -19,6 +19,9 @@ Qdrant/
 │   ├── project-1.py       # HNSW indexing with payload filters (1K products)
 │   ├── project-2.py       # Large-scale HNSW + OpenAI embeddings (100K DBpedia)
 │   └── README.md
+├── Final Project/
+│   ├── project-1.py       # HNSW benchmark across 4 configs on 5K IT tickets
+│   └── README.md
 ├── requirements.txt
 └── README.md              ← You are here
 ```
@@ -68,6 +71,15 @@ Production patterns for a 1,000-item store catalog. Focus on payload index creat
 End-to-end large-scale pipeline: load a 100K HuggingFace dataset of pre-computed OpenAI embeddings, bulk-upload with `m=0` HNSW setting for speed, flip to `m=16` for production quality, then benchmark search latency with and without a text payload index.
 
 > See [Day 3/README.md](Day%203/README.md) for full details.
+
+---
+
+### Final Project — HNSW Performance Optimization Benchmark
+**File:** [Final Project/project-1.py](Final%20Project/project-1.py)
+
+Puts everything together in a real-world benchmark using 5,000 IT helpdesk tickets from HuggingFace. Encodes ticket content with `all-MiniLM-L6-v2`, uploads to four collections with different HNSW parameters (`m` = 0 / 8 / 16 / 32), and measures upload time, search latency at multiple `hnsw_ef` values, and the speedup from adding a payload index on a computed `length` field. Also prints actual semantic search results for a configurable query.
+
+> See [Final Project/README.md](Final%20Project/README.md) for full details.
 
 ---
 
@@ -122,11 +134,11 @@ OPENAI_API_KEY=sk-...
 |---------|---------|---------|
 | `qdrant-client` | latest | All projects |
 | `python-dotenv` | latest | Day 1 p1, Day 3 p2 |
-| `sentence-transformers` | latest | Day 2 p1 & p2 |
-| `httpx` | latest | Day 2 p1 & p2, Day 3 p1 & p2 |
-| `numpy` | latest | Day 3 p1 & p2 |
+| `sentence-transformers` | latest | Day 2 p1 & p2, Final Project |
+| `httpx` | latest | Day 2 p1 & p2, Day 3 p1 & p2, Final Project |
+| `numpy` | latest | Day 3 p1 & p2, Final Project |
 | `openai` | latest | Day 3 p2 |
-| `datasets` | latest | Day 3 p2 (HuggingFace) |
+| `datasets` | latest | Day 3 p2 (HuggingFace), Final Project |
 | `tqdm` | latest | Day 3 p2 |
 
 Full pinned dependency list: [requirements.txt](requirements.txt)
@@ -135,20 +147,22 @@ Full pinned dependency list: [requirements.txt](requirements.txt)
 
 ## Key Concepts by Day
 
-| Concept | Day 1 | Day 2 | Day 3 |
-|---------|-------|-------|-------|
-| Vector collections | ✅ | ✅ | ✅ |
-| Cosine similarity search | ✅ | ✅ | ✅ |
-| Payload filtering | ✅ | ✅ | ✅ |
-| Sentence embeddings | — | ✅ | — |
-| Named multi-vectors | — | ✅ | — |
-| Text chunking strategies | — | ✅ | — |
-| Payload indexes | — | ✅ | ✅ |
-| HNSW configuration | — | — | ✅ |
-| Bulk upload optimization | — | — | ✅ |
-| OpenAI embeddings API | — | — | ✅ |
-| Performance benchmarking | — | — | ✅ |
-| Large-scale dataset (100K) | — | — | ✅ |
+| Concept | Day 1 | Day 2 | Day 3 | Final Project |
+|---------|-------|-------|-------|---------------|
+| Vector collections | ✅ | ✅ | ✅ | ✅ |
+| Cosine similarity search | ✅ | ✅ | ✅ | ✅ |
+| Payload filtering | ✅ | ✅ | ✅ | ✅ |
+| Sentence embeddings | — | ✅ | — | ✅ |
+| Named multi-vectors | — | ✅ | — | — |
+| Text chunking strategies | — | ✅ | — | — |
+| Payload indexes | — | ✅ | ✅ | ✅ |
+| HNSW configuration | — | — | ✅ | ✅ |
+| Bulk upload optimization | — | — | ✅ | ✅ |
+| OpenAI embeddings API | — | — | ✅ | — |
+| Performance benchmarking | — | — | ✅ | ✅ |
+| Large-scale dataset (100K) | — | — | ✅ | — |
+| Multi-config comparison | — | — | — | ✅ |
+| Real-world dataset (HuggingFace) | — | — | ✅ | ✅ |
 
 ---
 
